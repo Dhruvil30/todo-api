@@ -92,7 +92,7 @@ module.exports = {
             const noteId = req.params.id;
             const data = req.body;
             const eventData = await noteService.update(userId, noteId, data);
-            res.status(200).json(eventData);
+            res.status(200).json();
         } catch (error) {
             next(error);
         }

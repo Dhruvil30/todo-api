@@ -29,7 +29,6 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-    // console.log(error);
     const response = responseGenerator.generateErrorResponse(error);
     res.status(response.statusCode).json(response.body);
 })
