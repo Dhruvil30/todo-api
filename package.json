@@ -1,0 +1,32 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test-note": "mocha src/components/note/note.test.js",
+    "test-res-generator": "mocha src/utils/test/error.res.test.js",
+    "test": "mocha --exit src/components/note/note.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.11.1",
+    "joi": "^17.4.0",
+    "mongoose": "^5.12.8",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "dotenv": "^9.0.2",
+    "mocha": "^8.4.0"
+  }
+}
