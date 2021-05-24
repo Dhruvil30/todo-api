@@ -1,19 +1,40 @@
+require('dotenv').config({ path: '../' })
 const mongoose = require('mongoose');
-const userModel = require('../components/user/user.model');
-// const noteModel = require('../components/note/note.model');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
-const makeConnection = () => {
-    mongoose.connect(process.env.DATABASE_URL, { 
+const userModel = require('../components/user/user.model');
+
+const makeTestDbConnection = () => {
+    const mongoServer = new MongoMemoryServer();
+    const mongooseOptions = {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
         useFindAndModify: false
-    }, (error) => {
-        if (error) throw new Error('Connection failed with mongodb');
+    };
+    mongoServer.getUri().then((mongoUri) => {
+        mongoose.connect(mongoUri, mongooseOptions);
     });
 }
 
-makeConnection();
+const makeDbConnection = () => {
+    const mongooseOptions = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    };
+    mongoose.connect(process.env.DATABASE_URL, mongooseOptions);
+}
+
+const env = process.env.ENV
+
+if (env === 'TEST') makeTestDbConnection();
+else if (env === 'local') makeDbConnection();
+
+mongoose.connection.on('error', (error) => {
+    if (error) throw error;
+});
 
 module.exports = {
     mongoose,
