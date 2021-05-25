@@ -74,7 +74,7 @@ module.exports = {
                 'notes.$.reminderTime': data.reminderTime
             }};
         const queryResult = await Event.findOne(userQuery).updateOne({'notes._id': noteId}, query, { omitUndefined: true });
-        if (!queryResult.nModified) throw new Error('DATA_NOT_MODIFIED');
+        if (!queryResult.nModified) throw new Error('RESOURCE_NOT_FOUND');
     },
     
     delete: async (userId, noteId) => {

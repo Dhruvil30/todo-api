@@ -5,7 +5,6 @@ const chaiHttp = require('chai-http');
 const server = require('../../../bin/www');
 const errorCodes = require('../../utils/error-codes');
 const UserModel = require('../../lib/mongooseConfig').models.userModel;
-const { create: postNote } = require('./note.service');
 const { noteTestData } = require('../../utils/const-vars');
 
 chai.should();
@@ -13,6 +12,7 @@ chai.use(chaiHttp);
 
 const userId = noteTestData.userId;
 const noteId = noteTestData.noteId;
+const invalidNoteId = '000000000000';
 const baseRoute = '/notes';
 
 const checkValidNoteData = (note) => {
@@ -92,7 +92,7 @@ describe("Note APIs", () => {
             })
         );
         it("Invalid id to get", () => chai.request(server)
-            .get(`${baseRoute}/note/invalidId`)
+            .get(`${baseRoute}/note/${invalidNoteId}`)
             .set('userId', userId)
             .then((res) => {
                 chai.expect(res.status).to.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
@@ -166,6 +166,14 @@ describe("Note APIs", () => {
                 chai.expect(res.status).to.be.equal(errorCodes.DATA_INVALID.statusCode);
             })
         );
+        it("Invalid id to update", () => chai.request(server)
+            .put(`${baseRoute}/note/${invalidNoteId}`)
+            .set('userId', userId)
+            .send(validDataToUpdate)
+            .then((res) => {
+                chai.expect(res.status).to.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
+            })
+        );
         it("Unauthorizaed Access on put route", () => chai.request(server)
             .put(`${baseRoute}/note/${noteId}`)
             .send(validDataToUpdate)
@@ -184,7 +192,7 @@ describe("Note APIs", () => {
             })
         );
         it("Invalid id to delete", async () => chai.request(server)
-            .delete(`${baseRoute}/note/invalidId`)
+            .delete(`${baseRoute}/note/${invalidNoteId}`)
             .set('userId', userId)
             .then((res) => {
                 chai.expect(res.status).to.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
