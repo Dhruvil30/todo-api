@@ -5,15 +5,15 @@ const chaiHttp = require('chai-http');
 const server = require('../../../bin/www');
 const errorCodes = require('../../utils/error-codes');
 const UserModel = require('../../lib/mongooseConfig').models.userModel;
-const { noteTestData } = require('../../utils/const-vars');
+const { noteTestData } = require('../../utils/test-vars');
 
 chai.should();
 chai.use(chaiHttp);
 
+const baseRoute = '/notes';
 const userId = noteTestData.userId;
 const noteId = noteTestData.noteId;
 const invalidNoteId = '000000000000';
-const baseRoute = '/notes';
 
 const checkValidNoteData = (note) => {
     note.should.have.property('name').be.a('string');
@@ -41,7 +41,7 @@ describe("Note APIs", () => {
         it("Unauthorizaed Access on get all notes route", () => chai.request(server)
             .get(baseRoute)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     });
@@ -59,7 +59,7 @@ describe("Note APIs", () => {
         it("Unauthorizaed Access on search today's note route", () => chai.request(server)
             .get(`${baseRoute}/search/today`)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     });
@@ -77,7 +77,7 @@ describe("Note APIs", () => {
         it("Unauthorizaed Access on search note by name route", () => chai.request(server)
             .get(`${baseRoute}/search?name=implement`)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     });
@@ -95,13 +95,13 @@ describe("Note APIs", () => {
             .get(`${baseRoute}/note/${invalidNoteId}`)
             .set('userId', userId)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
+                res.status.should.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
             })
         );
         it("Unauthorizaed Access on get note route", () => chai.request(server)
             .get(`${baseRoute}/note/${noteId}`)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     });
@@ -121,7 +121,7 @@ describe("Note APIs", () => {
             .set('userId', userId)
             .send(validDataToPost)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(201);
+                res.status.should.be.equal(201);
             })
         );
         it("Invalid data to post", () => chai.request(server)
@@ -129,14 +129,14 @@ describe("Note APIs", () => {
             .set('userId', userId)
             .send(invalidDataToPost)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.DATA_INVALID.statusCode);
+                res.status.should.be.equal(errorCodes.DATA_INVALID.statusCode);
             })
         );
         it("Unauthorizaed Access on post route", () => chai.request(server)
             .post(baseRoute)
             .send(validDataToPost)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     });
@@ -155,7 +155,7 @@ describe("Note APIs", () => {
             .set('userId', userId)
             .send(validDataToUpdate)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(200);
+                res.status.should.be.equal(200);
             })
         );
         it("Invalid data to update", () => chai.request(server)
@@ -163,7 +163,7 @@ describe("Note APIs", () => {
             .set('userId', userId)
             .send(invalidDataToUpdate)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.DATA_INVALID.statusCode);
+                res.status.should.be.equal(errorCodes.DATA_INVALID.statusCode);
             })
         );
         it("Invalid id to update", () => chai.request(server)
@@ -171,14 +171,14 @@ describe("Note APIs", () => {
             .set('userId', userId)
             .send(validDataToUpdate)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
+                res.status.should.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
             })
         );
         it("Unauthorizaed Access on put route", () => chai.request(server)
             .put(`${baseRoute}/note/${noteId}`)
             .send(validDataToUpdate)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     })
@@ -188,20 +188,20 @@ describe("Note APIs", () => {
             .delete(`${baseRoute}/note/${noteId}`)
             .set('userId', userId)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(204);
+                res.status.should.be.equal(204);
             })
         );
         it("Invalid id to delete", async () => chai.request(server)
             .delete(`${baseRoute}/note/${invalidNoteId}`)
             .set('userId', userId)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
+                res.status.should.be.equal(errorCodes.RESOURCE_NOT_FOUND.statusCode);
             })
         );
         it("Unauthorizaed Access on delete route", () => chai.request(server)
             .delete(`${baseRoute}/note/${noteId}`)
             .then((res) => {
-                chai.expect(res.status).to.be.equal(errorCodes.UNAUTHORIZED.statusCode);
+                res.status.should.be.equal(errorCodes.UNAUTHORIZED.statusCode);
             })
         );
     });

@@ -32,34 +32,3 @@ module.exports = {
     }
 
 }
-
-
-// getAll: async (req, res) => {
-//     try {
-//         const evenData = await userService.getAll();
-//         res.status(200).json(evenData);
-//     } catch {
-//         res.status(400).json({ message: error.message });
-//     }
-// },
-
-// update: async (req, res) => {
-//     try{
-//         const { id: userId } = req.params;
-//         const data = req.body;
-//         const eventData = await userService.update(data, userId);
-//         res.status(200).json(eventData);
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//     }
-// },
-
-// delete: async (req, res) => {
-//     try {
-//         const { id: userId } = req.params;
-//         const eventData = await userService.delete(userId);
-//         res.status(200).json(eventData);
-//     } catch (error) {
-//         res.status(400).json({ message: error.message });
-//     }
-// }

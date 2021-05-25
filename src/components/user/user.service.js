@@ -27,30 +27,3 @@ module.exports = {
     }
 
 }
-
-
-// getAll: async () => {
-//     const queryResult = await Event.find();
-//     return queryResult;
-// },
-
-// get: async (id) => {
-//     const query = { _id: id };
-//     const queryResult = await Event.findOne(query);
-//     if (!queryResult) throw new Error('User Not Found');
-//     return queryResult;
-// },
-
-// update: async (data, id) => {
-//     const eventData = data;
-//     const queryResult = await Event.findByIdAndUpdate(id, eventData, { new: true });
-//     if (!queryResult) throw new Error('User Not Found');
-//     return queryResult;
-// },
-
-// delete: async (id) => {
-//     const query = { _id: id };
-//     const queryResult = await Event.delete(query);
-//     if (!queryResult) throw new Error('User Not Found');
-//     return queryResult;
-// }

@@ -1,5 +1,25 @@
 module.exports = {
 
+    userTestData: {
+        userId: '000user01234',
+        users: [
+            {
+                _id: "000user01234",
+                name: "Dhruvil",
+                email: "dp@gmail.com",
+                password: "password",
+                notes: []
+            },
+            {
+                _id: "000user01235",
+                name: "Kunal",
+                email: "km@gmail.com",
+                password: "password",
+                notes: []
+            }
+        ]
+    },
+
     noteTestData: {
         userId: '000user12345',
         noteId: '000note12345',
@@ -29,6 +49,6 @@ module.exports = {
                 }
             ]
         }
-    },
+    }
 
 }
