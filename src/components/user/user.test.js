@@ -2,6 +2,7 @@ process.env.ENV = 'TEST';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+
 const server = require('../../../bin/www');
 const errorCodes = require('../../utils/error-codes');
 const UserModel = require('../../lib/mongooseConfig').models.userModel;
