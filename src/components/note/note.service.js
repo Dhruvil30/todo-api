@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
 const Event = require('../../lib/mongooseConfig').models.userModel;
+const mongoose = require('../../lib/mongooseConfig').mongoose;
 
 module.exports = {
 

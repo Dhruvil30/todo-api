@@ -1,4 +1,3 @@
-require('dotenv').config({ path: '../' })
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
@@ -27,7 +26,7 @@ const makeDbConnection = () => {
     mongoose.connect(process.env.DATABASE_URL, mongooseOptions);
 }
 
-const env = process.env.ENV
+const env = process.env.NODE_ENV;
 
 if (env === 'TEST') makeTestDbConnection();
 else if (env === 'local') makeDbConnection();

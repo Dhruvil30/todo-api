@@ -1,5 +1,5 @@
 const errorCodes = require('./error-codes');
-const mongoose = require('mongoose');
+const { mongoose } = require('../lib/mongooseConfig');
 
 module.exports = {
     generateErrorResponse: (error) => {

@@ -27,6 +27,7 @@
     "chai-http": "^4.3.0",
     "dotenv": "^9.0.2",
     "mocha": "^8.4.0",
-    "mongodb-memory-server": "^6.9.6"
+    "mongodb-memory-server": "^6.9.6",
+    "nock": "^13.0.11"
   }
 }

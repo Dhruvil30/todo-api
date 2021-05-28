@@ -49,6 +49,24 @@ module.exports = {
                 }
             ]
         }
-    }
+    },
+
+    getNoteTestData: [
+            {
+              name: 'Meeting',
+              description: 'Meeting regarding discord message format',        
+              reminderTime: '2021-05-24T05:30:00.000Z'
+            },
+            {
+              name: 'Implement',
+              description: 'Implement discord message format task',
+              reminderTime: '2021-05-24T05:30:00.000Z'
+            },
+            {
+              name: 'Issue',
+              description: 'Work on search by name issue in todo list',       
+              reminderTime: '2021-05-22T05:30:00.000Z'
+            }
+        ]
 
 }

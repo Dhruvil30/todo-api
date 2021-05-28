@@ -1,7 +1,7 @@
 module.exports = {
 
     getUserId: (req, res) => {
-        const env = process.env.ENV;
+        const env = process.env.NODE_ENV;
         if (env === 'local') return req.session.userId;
         else if (env === 'TEST') return req.get('userId');
     }
