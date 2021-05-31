@@ -1,5 +1,5 @@
 node_modules
 .env
-.zip
+.eslintrc.json
 .ssh
 .ssh.pub

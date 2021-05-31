@@ -19,15 +19,18 @@
     "joi": "^17.4.0",
     "mongoose": "^5.12.8",
     "request": "^2.88.2",
+    "dotenv": "^9.0.2",
+    "mongodb-memory-server": "^6.9.6",
     "request-promise": "^4.2.6",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
-    "dotenv": "^9.0.2",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
     "mocha": "^8.4.0",
-    "mongodb-memory-server": "^6.9.6",
     "nock": "^13.0.11"
   }
 }
