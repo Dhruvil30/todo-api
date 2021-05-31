@@ -12,7 +12,7 @@ router
   .post(
     checkSessionForLoggedInUser,
     validator.body(noteValidation.createNoteSchema),
-    noteController.create
+    noteController.create,
   );
 
 router
@@ -21,7 +21,7 @@ router
   .put(
     checkSessionForLoggedInUser,
     validator.body(noteValidation.updateNoteSchema),
-    noteController.update
+    noteController.update,
   )
   .delete(checkSessionForLoggedInUser, noteController.delete);
 

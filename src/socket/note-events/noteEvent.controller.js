@@ -11,5 +11,5 @@ module.exports = {
 
   sendUpdatedData: (data, userId, io) => {
     io.to(userId).emit('newNoteAdded', data);
-  }
+  },
 };

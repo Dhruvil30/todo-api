@@ -5,14 +5,11 @@ const discordWebhookUrl = process.env.DISCORD_URL;
 
 const defineDiscordObject = (data) => {
   const fieldsList = [];
-  for (note of data) {
-    let value =
-      note.description +
-      '\n' +
-      note.reminderTime.toISOString().substring(11, 19);
+  for (const note of data) {
+    const value = `${note.description} '\n'${note.reminderTime.toISOString().substring(11, 19)}`;
     fieldsList.push({
       name: note.name,
-      value: value
+      value: value,
     });
   }
   return {
@@ -25,7 +22,7 @@ const message = (userName, data) => {
   const discordObject = {
     username: 'Todos Bot',
     content: '**```Todos for ' + userName + '```**',
-    embeds: []
+    embeds: [],
   };
 
   discordObject.embeds.push(defineDiscordObject(data));
@@ -38,7 +35,7 @@ module.exports.sentDiscordNotification = (userName, data) => {
     method: 'POST',
     uri: discordWebhookUrl,
     body: message(userName, data),
-    json: true
+    json: true,
   };
   rp(options);
 };

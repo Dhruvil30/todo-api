@@ -28,5 +28,5 @@ module.exports = {
   logout: async (req, res) => {
     req.session.userId = null;
     res.status(200).json({ message: 'User Logged Out.' });
-  }
+  },
 };

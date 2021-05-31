@@ -10,12 +10,12 @@ const UserSchema = new mongoose.Schema({
         {
           name: { type: String, required: true },
           description: { type: String, required: true },
-          reminderTime: { type: Date, required: true }
+          reminderTime: { type: Date, required: true },
         },
-        { timestamps: true }
-      )
-    }
-  ]
+        { timestamps: true },
+      ),
+    },
+  ],
 });
 
 const userModel = mongoose.model('user', UserSchema);

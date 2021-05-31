@@ -4,11 +4,12 @@ const noteEventController = require('../../socket/note-events/noteEvent.controll
 const formatNotesData = (data) => {
   if (!data.length) return [];
   return data[0].notes.map((note) => {
-    return {
+    const formatedObj = {
       name: note.name,
       description: note.description,
-      reminderTime: note.reminderTime
+      reminderTime: note.reminderTime,
     };
+    return formatedObj;
   });
 };
 
@@ -18,11 +19,12 @@ module.exports = {
       const userId = req.user.id;
       const eventData = await noteService.getAll(userId);
       const formatedData = eventData.notes.map((note) => {
-        return {
+        const formatedObj = {
           name: note.name,
           description: note.description,
-          reminderTime: note.reminderTime
+          reminderTime: note.reminderTime,
         };
+        return formatedObj;
       });
       res.status(200).json(formatedData);
     } catch (error) {
@@ -61,7 +63,7 @@ module.exports = {
       const formatedData = {
         name: eventData.name,
         description: eventData.description,
-        reminderTime: eventData.reminderTime
+        reminderTime: eventData.reminderTime,
       };
       res.status(200).json(formatedData);
     } catch (error) {
@@ -73,9 +75,9 @@ module.exports = {
     try {
       const userId = req.user.id;
       const data = req.body;
-      const IoObj = req.IoObj;
+      const io = req.IoObj;
       await noteService.create(userId, data);
-      noteEventController.sendUpdatedData(data, userId, IoObj);
+      noteEventController.sendUpdatedData(data, userId, io);
       res.status(201).json();
     } catch (error) {
       next(error);
@@ -103,5 +105,5 @@ module.exports = {
     } catch (error) {
       next(error);
     }
-  }
+  },
 };

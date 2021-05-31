@@ -7,7 +7,7 @@ module.exports = {
     if (!queryResult) throw new Error('RESOURCE_NOT_FOUND');
     return {
       id: queryResult.id,
-      name: queryResult.name
+      name: queryResult.name,
     };
   },
 
@@ -16,12 +16,12 @@ module.exports = {
     const queryResult = await eventData.save();
     return {
       id: queryResult.id,
-      name: queryResult.name
+      name: queryResult.name,
     };
   },
 
   getAllUserForTodoScheduler: async () => {
     const queryResult = await Event.find({}, { _id: 1, name: 1 });
     return queryResult;
-  }
+  },
 };

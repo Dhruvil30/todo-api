@@ -13,5 +13,5 @@ module.exports = {
       req.user.id = userId;
       next();
     } else throw new Error('UNAUTHORIZED');
-  }
+  },
 };

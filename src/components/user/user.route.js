@@ -1,11 +1,9 @@
 const express = require('express');
-const validator = require('express-joi-validation').createValidator({
-  passError: true
-});
+const validator = require('express-joi-validation').createValidator({ passError: true });
 const userController = require('./user.controller');
 const {
   checkSessionForLoggedInUser,
-  checkSessionForLoggedOutUser
+  checkSessionForLoggedOutUser,
 } = require('../../utils/varify-session');
 const userValidation = require('./user.validation');
 
@@ -16,7 +14,7 @@ router
   .post(
     checkSessionForLoggedOutUser,
     validator.body(userValidation.loginUserSchema),
-    userController.login
+    userController.login,
   );
 
 router
@@ -24,7 +22,7 @@ router
   .post(
     checkSessionForLoggedOutUser,
     validator.body(userValidation.createUserSchema),
-    userController.register
+    userController.register,
   );
 
 router.route('/logout').get(checkSessionForLoggedInUser, userController.logout);

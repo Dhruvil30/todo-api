@@ -15,7 +15,7 @@ todoScheduler.getUsersData().then((users) => todoScheduler.runScheduler(users));
 app.use(session({
   secret: process.env.SESSION_SECRET_KEY,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 }));
 
 app.use((req, res, next) => {

@@ -3,5 +3,5 @@ const noteRoutes = require('./note/note.route');
 
 module.exports = {
   userRoutes,
-  noteRoutes
+  noteRoutes,
 };

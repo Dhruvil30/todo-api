@@ -9,7 +9,7 @@ const makeTestDbConnection = () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   };
   mongoServer.getUri().then((mongoUri) => {
     mongoose.connect(mongoUri, mongooseOptions);
@@ -21,7 +21,7 @@ const makeDbConnection = () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   };
   mongoose.connect(process.env.DATABASE_URL, mongooseOptions);
 };
@@ -38,6 +38,6 @@ mongoose.connection.on('error', (error) => {
 module.exports = {
   mongoose,
   models: {
-    userModel
-  }
+    userModel,
+  },
 };

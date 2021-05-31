@@ -1,5 +1,5 @@
 const Event = require('../../lib/mongooseConfig').models.userModel;
-const mongoose = require('../../lib/mongooseConfig').mongoose;
+const { mongoose } = require('../../lib/mongooseConfig');
 
 module.exports = {
   getAll: async (userId) => {
@@ -14,15 +14,15 @@ module.exports = {
       { $unwind: '$notes' },
       {
         $match: {
-          'notes.name': { $regex: searchName, $options: 'i' }
-        }
+          'notes.name': { $regex: searchName, $options: 'i' },
+        },
       },
       {
         $group: {
           _id: '$_id',
-          notes: { $push: '$notes' }
-        }
-      }
+          notes: { $push: '$notes' },
+        },
+      },
     ];
     const queryResult = await Event.aggregate(query);
     return queryResult;
@@ -45,13 +45,13 @@ module.exports = {
               cond: {
                 $and: [
                   { $gte: ['$$note.reminderTime', startTime] },
-                  { $lt: ['$$note.reminderTime', endTime] }
-                ]
-              }
-            }
-          }
-        }
-      }
+                  { $lt: ['$$note.reminderTime', endTime] },
+                ],
+              },
+            },
+          },
+        },
+      },
     ];
     const queryResult = await Event.aggregate(query);
     return queryResult;
@@ -61,8 +61,8 @@ module.exports = {
     const userQuery = { _id: userId };
     const query = {
       notes: {
-        $elemMatch: { _id: noteId }
-      }
+        $elemMatch: { _id: noteId },
+      },
     };
     const queryResult = await Event.findOne(userQuery).select(query);
     if (!queryResult.notes.length) throw new Error('RESOURCE_NOT_FOUND');
@@ -72,7 +72,7 @@ module.exports = {
   create: async (userId, data) => {
     const query = { $push: { notes: data } };
     const queryResult = await Event.findByIdAndUpdate(userId, query, {
-      new: true
+      new: true,
     });
     return queryResult;
   },
@@ -83,13 +83,13 @@ module.exports = {
       $set: {
         'notes.$.name': data.name,
         'notes.$.description': data.description,
-        'notes.$.reminderTime': data.reminderTime
-      }
+        'notes.$.reminderTime': data.reminderTime,
+      },
     };
     const queryResult = await Event.findOne(userQuery).updateOne(
       { 'notes._id': noteId },
       query,
-      { omitUndefined: true }
+      { omitUndefined: true },
     );
     if (!queryResult.nModified) throw new Error('RESOURCE_NOT_FOUND');
   },
@@ -99,5 +99,5 @@ module.exports = {
     const query = { $pull: { notes: { _id: noteId } } };
     const queryResult = await Event.findOne(userQuery).updateOne(query);
     if (!queryResult.nModified) throw new Error('RESOURCE_NOT_FOUND');
-  }
+  },
 };
