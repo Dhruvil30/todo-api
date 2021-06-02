@@ -1,27 +1,26 @@
-const Event = require('../../lib/mongooseConfig').models.userModel;
+const User = require('../../lib/mongooseConfig').models.userModel;
 
 module.exports = {
   authenticate: async (data) => {
     const eventData = data;
-    const queryResult = await Event.findOne(eventData);
-    if (!queryResult) throw new Error('RESOURCE_NOT_FOUND');
-    return {
-      id: queryResult.id,
-      name: queryResult.name,
-    };
+    const queryResult = await User.findOne(eventData);
+    if (!queryResult) throw new Error('UNAUTHORIZED');
+    return queryResult;
   },
 
   create: async (data) => {
-    const eventData = new Event(data);
+    const eventData = new User(data);
     const queryResult = await eventData.save();
-    return {
-      id: queryResult.id,
-      name: queryResult.name,
-    };
+    return queryResult;
   },
 
   getAllUserForTodoScheduler: async () => {
-    const queryResult = await Event.find({}, { _id: 1, name: 1 });
+    const queryResult = await User.find({}, { _id: 1, name: 1 });
     return queryResult;
   },
+
+  checkForDuplicateEmail: async (email) => {
+    const queryResult = await User.findOne({ email });
+    return queryResult;
+  }
 };

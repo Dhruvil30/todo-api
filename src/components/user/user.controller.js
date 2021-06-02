@@ -1,5 +1,13 @@
 const userService = require('./user.service');
 
+const filterData = (data) => {
+  return {
+    id: data.id,
+    name: data.name,
+    email: data.email,
+  }
+}
+
 module.exports = {
   login: async (req, res, next) => {
     try {
@@ -7,7 +15,8 @@ module.exports = {
       const eventData = await userService.authenticate(data);
       req.session.userId = eventData.id;
       req.session.userName = eventData.name;
-      res.status(200).json(eventData);
+      const filteredData = filterData(eventData);
+      res.status(200).json(filteredData);
     } catch (error) {
       next(error);
     }
@@ -17,9 +26,8 @@ module.exports = {
     try {
       const data = req.body;
       const eventData = await userService.create(data);
-      req.session.userId = eventData.id;
-      req.session.userName = eventData.name;
-      res.status(201).json(eventData);
+      const filteredData = filterData(eventData);
+      res.status(201).json(filteredData);
     } catch (error) {
       next(error);
     }

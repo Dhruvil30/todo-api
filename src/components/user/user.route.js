@@ -6,6 +6,7 @@ const {
   checkSessionForLoggedOutUser,
 } = require('../../utils/varify-session');
 const userValidation = require('./user.validation');
+const { sendRegistrationEmail } = require('../../utils/registraction-email');
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router
   .post(
     checkSessionForLoggedOutUser,
     validator.body(userValidation.createUserSchema),
+    sendRegistrationEmail,
     userController.register,
   );
 

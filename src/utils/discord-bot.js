@@ -6,7 +6,7 @@ const discordWebhookUrl = process.env.DISCORD_URL;
 const defineDiscordObject = (data) => {
   const fieldsList = [];
   for (const note of data) {
-    const value = `${note.description} '\n'${note.reminderTime.toISOString().substring(11, 19)}`;
+    const value = `${note.description}\n${note.reminderTime.toISOString().substring(11, 19)}`;
     fieldsList.push({
       name: note.name,
       value: value,
