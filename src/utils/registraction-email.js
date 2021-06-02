@@ -24,7 +24,7 @@ const sendRegistrationEmail = async (req, res, next) => {
     const data = req.body;
     await checkIfUserExist(data.email);
     const mailOptions = createMailOpions(data);
-    mailgun.messages().send(mailOptions);
+    await mailgun.messages().send(mailOptions);
     next();
   } catch (error) {
     next(error);
