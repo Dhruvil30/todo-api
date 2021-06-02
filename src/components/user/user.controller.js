@@ -1,12 +1,13 @@
 const userService = require('./user.service');
 
 const filterData = (data) => {
-  return {
+  const returnObj = {
     id: data.id,
     name: data.name,
     email: data.email,
-  }
-}
+  };
+  return returnObj;
+};
 
 module.exports = {
   login: async (req, res, next) => {

@@ -22,5 +22,5 @@ module.exports = {
   checkForDuplicateEmail: async (email) => {
     const queryResult = await User.findOne({ email });
     return queryResult;
-  }
+  },
 };

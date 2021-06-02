@@ -14,9 +14,9 @@ module.exports = {
     ecmaVersion: 10,
     sourceType: 'module',
   },
-  eslintIgnore: [
-    '*.test.js'
-  ],
+  // eslintIgnore: [
+  //   '*.test.js',
+  // ],
   rules: {
     'no-useless-catch': 0,
     'no-underscore-dangle': 0,
