@@ -2,11 +2,13 @@ process.env.NODE_ENV = 'TEST';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const sinon = require('sinon');
 
 const server = require('../../../bin/www');
 const errorCodes = require('../../utils/error-codes');
 const UserModel = require('../../lib/mongooseConfig').models.userModel;
 const { userTestData } = require('../../utils/test-vars');
+const registrationEmail = require('../../utils/registraction-email');
 
 chai.should();
 chai.use(chaiHttp);
@@ -72,7 +74,9 @@ describe('User APIs', () => {
       name: 'test user',
       password: 'password',
     };
-    it('Valid data to register', () =>
+    it('Valid data to register', () => {
+      sinon.stub(registrationEmail, 'sendRegistrationEmail')
+        .callsFake((req, res, next) => next());
       chai
         .request(server)
         .post(`${baseRoute}/register`)
@@ -81,8 +85,9 @@ describe('User APIs', () => {
           res.status.should.be.equal(201);
           res.body.should.have.property('id').be.a('string');
           res.body.should.have.property('name').be.a('string');
-        }));
-    it('Duplicate data to register', () =>
+        });
+    });
+    it('Duplicate data to register', () => 
       chai
         .request(server)
         .post(`${baseRoute}/register`)
