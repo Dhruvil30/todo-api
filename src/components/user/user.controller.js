@@ -1,4 +1,5 @@
 const userService = require('./user.service');
+const { sendRegistrationEmail } = require('../../utils/registraction-email');
 
 const filterData = (data) => {
   const returnObj = {
@@ -28,6 +29,7 @@ module.exports = {
       const data = req.body;
       const eventData = await userService.create(data);
       const filteredData = filterData(eventData);
+      await sendRegistrationEmail(filteredData);
       res.status(201).json(filteredData);
     } catch (error) {
       next(error);
@@ -37,5 +39,15 @@ module.exports = {
   logout: async (req, res) => {
     req.session.userId = null;
     res.status(200).json({ message: 'User Logged Out.' });
+  },
+
+  verify: async (req, res, next) => {
+    try {
+      const verifyId = req.verifyId;
+      await userService.verifyUser(verifyId);
+      res.status(200).json({ message: 'Your email is verified.' });
+    } catch (error) {
+      next(error);
+    }
   },
 };

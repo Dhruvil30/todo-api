@@ -1,7 +1,7 @@
 const express = require('express');
 const validator = require('express-joi-validation').createValidator({ passError: true });
 const noteController = require('./note.controller');
-const { checkSessionForLoggedInUser } = require('../../utils/varify-session');
+const { checkSessionForLoggedInUser } = require('../../utils/verification');
 const noteValidation = require('./note.validation');
 
 const router = express.Router();

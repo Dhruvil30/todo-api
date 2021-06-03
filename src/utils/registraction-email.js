@@ -1,33 +1,33 @@
 const API_KEY = process.env.MAILGUN_API_KEY;
 const DOMAIN = process.env.MAILGUN_DOMAIN;
+const JWT_KEY = process.env.JWT_KEY;
 
+const jwt = require('jsonwebtoken');
 const mailgun = require('mailgun-js')({ apiKey: API_KEY, domain: DOMAIN });
-const { checkForDuplicateEmail } = require('../components/user/user.service');
 
-const createMailOpions = (data) => {
+const createMailOpions = (data, url) => {
   const options = {
     from: 'todo-api@zuru.tech',
     to: data.email,
     subject: 'Registration Confirmation from nodemailer',
-    text: `Hello ${data.name}\nPlease confirm registration.`,
+    text: `Hello ${data.name}\nPlease confirm registration by clicking on below link\n${url}.`,
   };
   return options;
 };
 
-const checkIfUserExist = async (email) => {
-  const user = await checkForDuplicateEmail(email);
-  if (user) throw new Error('DUPLICATE_KEY_ERROR');
+const generateUrl = (id) => {
+  const token = jwt.sign(id, JWT_KEY);
+  const url = `http://localhost:3000/users/verify/${token}`;
+  return url;
 };
 
-const sendRegistrationEmail = async (req, res, next) => {
+const sendRegistrationEmail = async (data) => {
   try {
-    const data = req.body;
-    await checkIfUserExist(data.email);
-    const mailOptions = createMailOpions(data);
+    const url = generateUrl(data.id);
+    const mailOptions = createMailOpions(data, url);
     await mailgun.messages().send(mailOptions);
-    next();
   } catch (error) {
-    next(error);
+    throw error;
   }
 };
 

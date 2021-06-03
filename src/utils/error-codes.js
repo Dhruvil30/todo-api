@@ -13,6 +13,13 @@ module.exports = {
       message: 'Invalid data.',
     },
   },
+  TOKEN_INVALID: {
+    statusCode: 400,
+    body: {
+      code: 'bad_request',
+      message: 'Invalid token.',
+    },
+  },
   PARAMS_INVALID: {
     statusCode: 400,
     body: {
@@ -25,6 +32,13 @@ module.exports = {
     body: {
       code: 'unauthorized',
       message: 'User is unauthorized for access.',
+    },
+  },
+  NOT_VERIFIED: {
+    statusCode: 401,
+    body: {
+      code: 'unauthorized',
+      message: 'Email is not verified.',
     },
   },
   RESOURCE_NOT_FOUND: {

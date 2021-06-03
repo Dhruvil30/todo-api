@@ -4,9 +4,9 @@ const userController = require('./user.controller');
 const {
   checkSessionForLoggedInUser,
   checkSessionForLoggedOutUser,
-} = require('../../utils/varify-session');
+} = require('../../utils/verification');
 const userValidation = require('./user.validation');
-const { sendRegistrationEmail } = require('../../utils/registraction-email');
+const { verifyEmail, checkIsUserVerified } = require('../../utils/verification');
 
 const router = express.Router();
 
@@ -15,6 +15,7 @@ router
   .post(
     checkSessionForLoggedOutUser,
     validator.body(userValidation.loginUserSchema),
+    checkIsUserVerified,
     userController.login,
   );
 
@@ -23,10 +24,11 @@ router
   .post(
     checkSessionForLoggedOutUser,
     validator.body(userValidation.createUserSchema),
-    sendRegistrationEmail,
     userController.register,
   );
 
 router.route('/logout').get(checkSessionForLoggedInUser, userController.logout);
+
+router.route('/verify/:token').get(verifyEmail, userController.verify);
 
 module.exports = router;

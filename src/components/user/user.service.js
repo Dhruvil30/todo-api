@@ -19,8 +19,14 @@ module.exports = {
     return queryResult;
   },
 
-  checkForDuplicateEmail: async (email) => {
+  getUserByEmail: async (email) => {
     const queryResult = await User.findOne({ email });
+    return queryResult;
+  },
+
+  verifyUser: async (userId) => {
+    const queryResult = await User.findByIdAndUpdate(userId, { verified: true }, { new: true });
+    if (!queryResult) throw new Error('TOKEN_INVALID');
     return queryResult;
   },
 };

@@ -16,14 +16,14 @@ const makeTestDbConnection = () => {
   });
 };
 
-const makeDbConnection = () => {
+const makeDbConnection = async () => {
   const mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   };
-  mongoose.connect(process.env.DATABASE_URL, mongooseOptions);
+  await mongoose.connect(process.env.DATABASE_URL, mongooseOptions);
 };
 
 const env = process.env.NODE_ENV;

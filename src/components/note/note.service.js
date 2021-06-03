@@ -71,9 +71,7 @@ module.exports = {
 
   create: async (userId, data) => {
     const query = { $push: { notes: data } };
-    const queryResult = await Event.findByIdAndUpdate(userId, query, {
-      new: true,
-    });
+    const queryResult = await Event.findByIdAndUpdate(userId, query, { new: true });
     return queryResult;
   },
 
