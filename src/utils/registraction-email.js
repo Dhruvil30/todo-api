@@ -21,8 +21,9 @@ const createMailOpions = (data, urls) => {
 
 const generateUrl = (id) => {
   const token = jwt.sign(id, JWT_KEY);
-  const verificationUrl = `http://localhost:3000/users/verify-reg/${token}`;
-  const disapproveUrl = `http://localhost:3000/users/disapprove-reg/${token}`;
+  const hostUrl = process.env.HOST_URL;
+  const verificationUrl = `${hostUrl}/users/verify-reg/${token}`;
+  const disapproveUrl = `${hostUrl}/users/disapprove-reg/${token}`;
   return {
     verificationUrl,
     disapproveUrl,

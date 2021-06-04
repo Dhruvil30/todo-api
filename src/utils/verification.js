@@ -34,7 +34,9 @@ module.exports = {
   checkIsUserVerified: async (req, res, next) => {
     const { email } = req.body;
     const user = await getUserByEmail(email);
-    if (user.verified) next();
-    else next(new Error('NOT_VERIFIED'));
+    if (user) {
+      if (user.verified) next();
+      else next(new Error('NOT_VERIFIED'));
+    } else next(new Error('UNAUTHORIZED'));
   },
 };
