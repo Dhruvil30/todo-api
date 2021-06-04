@@ -20,11 +20,11 @@ module.exports = {
     } else throw new Error('UNAUTHORIZED');
   },
 
-  verifyEmail: async (req, res, next) => {
+  getIdFromToken: async (req, res, next) => {
     const { token } = req.params;
     try {
       const userId = jwt.verify(token, JWT_KEY);
-      req.verifyId = userId;
+      req.jwtId = userId;
       next();
     } catch (error) {
       next(new Error('TOKEN_INVALID'));

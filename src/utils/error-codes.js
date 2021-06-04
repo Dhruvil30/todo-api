@@ -27,6 +27,13 @@ module.exports = {
       message: 'Invalid parameter.',
     },
   },
+  EMAIL_ALREADY_VERIFIED: {
+    statusCode: 400,
+    body: {
+      code: 'bad_request',
+      message: 'Email is already verified.',
+    },
+  },
   UNAUTHORIZED: {
     statusCode: 401,
     body: {

@@ -41,11 +41,21 @@ module.exports = {
     res.status(200).json({ message: 'User Logged Out.' });
   },
 
-  verify: async (req, res, next) => {
+  verifyReg: async (req, res, next) => {
     try {
-      const verifyId = req.verifyId;
-      await userService.verifyUser(verifyId);
+      const userId = req.jwtId;
+      await userService.verifyUser(userId);
       res.status(200).json({ message: 'Your email is verified.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  disapproveReg: async (req, res, next) => {
+    try {
+      const userId = req.jwtId;
+      await userService.disapproveUser(userId);
+      res.status(200).json({ message: 'Your registration is disapproved.' });
     } catch (error) {
       next(error);
     }

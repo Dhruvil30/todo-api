@@ -6,7 +6,7 @@ const {
   checkSessionForLoggedOutUser,
 } = require('../../utils/verification');
 const userValidation = require('./user.validation');
-const { verifyEmail, checkIsUserVerified } = require('../../utils/verification');
+const { getIdFromToken, checkIsUserVerified } = require('../../utils/verification');
 
 const router = express.Router();
 
@@ -29,6 +29,8 @@ router
 
 router.route('/logout').get(checkSessionForLoggedInUser, userController.logout);
 
-router.route('/verify/:token').get(verifyEmail, userController.verify);
+router.route('/verify-reg/:token').get(getIdFromToken, userController.verifyReg);
+
+router.route('/disapprove-reg/:token').get(getIdFromToken, userController.disapproveReg);
 
 module.exports = router;

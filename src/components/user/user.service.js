@@ -25,8 +25,18 @@ module.exports = {
   },
 
   verifyUser: async (userId) => {
-    const queryResult = await User.findByIdAndUpdate(userId, { verified: true }, { new: true });
+    const queryResult = await User.findById(userId);
     if (!queryResult) throw new Error('TOKEN_INVALID');
+    if (queryResult.verified === true) throw new Error('EMAIL_ALREADY_VERIFIED');
+    await queryResult.updateOne({ verified: true });
+    return queryResult;
+  },
+
+  disapproveUser: async (userId) => {
+    const queryResult = await User.findById(userId);
+    if (!queryResult) throw new Error('TOKEN_INVALID');
+    if (queryResult.verified === true) throw new Error('EMAIL_ALREADY_VERIFIED');
+    await queryResult.delete();
     return queryResult;
   },
 };
