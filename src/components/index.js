@@ -5,9 +5,3 @@ module.exports = {
   userRoutes,
   noteRoutes,
 };
-
-// Testing from main branch
-
-// This is for testing
-// Adding this in testing branch
-// Adding this in main branch
